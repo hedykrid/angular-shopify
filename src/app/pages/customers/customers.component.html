@@ -1,0 +1,87 @@
+
+<div>
+    <div *ngFor="let query of queries">
+        <div (click)="activeQuery = query.query;getCustomers()">
+            {{query.name}}
+        </div>
+    </div>
+</div>
+<p-progressSpinner *ngIf="loading || !customers"></p-progressSpinner>
+<ng-container *ngIf="customers && !loading">
+    <p-table #ctable [value]="customers" [globalFilterFields]="['firstName', 'lastName', 'defaultAddress.zip', 'email']">
+        <ng-template pTemplate="caption">
+            <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="ctable.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                
+            <th style="width: 2.25em">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+                <th>Customer</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Created</th>
+                <th>Last Order</th>
+                <th>Total Spent</th>
+                <th>Zipcode(s)</th>
+            </tr>
+<!--             
+        <tr>
+            <th>
+                <input pInputText type="text" (input)="ctable.filter($event.target.value, 'last_name', 'contains')">
+            </th>
+            <th>
+                <input pInputText type="text" (input)="ctable.filter($event.target.value, 'zip', 'contains')">
+            </th>
+            <th>
+                <input pInputText type="text" (input)="ctable.filter($event.target.value, 'email', 'contains')">
+            </th>
+            <th>
+                <input pInputText type="text" (input)="ctable.filter($event.target.value, 'created_at', 'contains')">
+            </th>
+            <th>
+                <input pInputText type="text" (input)="ctable.filter($event.target.value, 'last_order_name', 'contains')">
+            </th>
+            <th>
+                <input pInputText type="text" (input)="ctable.filter($event.target.value, 'total_spent', 'contains')">
+            </th>
+        </tr> -->
+        </ng-template>
+        <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
+            <tr [pSelectableRow]="customer">
+                <td>
+                    <p-tableCheckbox [value]="customer" [disabled]="false" [index]="rowIndex"></p-tableCheckbox>
+                </td>
+                <td>
+                        {{customer?.firstName}} {{customer?.lastName}}<br>
+                </td>
+                <td>
+                    
+                    <span>{{customer?.defaultAddress?.address1}}<br>
+                        {{customer?.defaultAddress?.address2}}<br>
+                        {{customer?.defaultAddress?.city}}, {{customer?.defaultAddress?.provinceCode}} {{customer?.defaultAddress?.zip}}
+                    </span>
+                </td>
+                <td>
+                    {{customer?.email}}
+                </td>
+                <td>
+                    {{customer?.createdAt}}
+                </td>
+                <td>
+                    {{customer?.lastOrderName}}
+                </td>
+                <td>
+                    {{customer?.totalSpent}}
+                </td>
+                <td>
+                    <ng-container *ngFor="let address of customer?.addresses">
+                        {{ address?.zip }}<br>
+                    </ng-container>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</ng-container>

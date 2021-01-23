@@ -1,0 +1,16 @@
+header {
+    overflow: hidden;
+    padding: 5px;
+    background: #017550;
+    a {
+        color: #FFF;
+        margin: 5px;
+        padding: 15px 5px;
+        display: inline-block;
+        letter-spacing: 1px;
+        &:hover {
+            color: #FFF;
+            opacity: 0.8;
+        }
+    }
+}

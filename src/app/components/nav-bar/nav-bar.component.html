@@ -1,0 +1,14 @@
+<header class="d-flex justify-content-between align-items-center">
+    <div class="left">
+        <img src="assets/logo.jpg" style="width: 100px" class="logo">
+        <a routerLink="/">Home</a>
+        <!-- <a routerLink="profile" *ngIf="auth.loggedIn">Profile</a> -->
+        <a routerLink="orders" *ngIf="auth.loggedIn">Orders</a>
+        <a routerLink="customers" *ngIf="auth.loggedIn">Customers</a>
+        <a routerLink="routes" *ngIf="auth.loggedIn">Routes</a>
+    </div>
+    <div class="right">
+        <button class="btn btn-primary" (click)="auth.login()" *ngIf="!auth.loggedIn">Login&nbsp;<span><fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon></span></button>
+        <button class="btn btn-primary" (click)="auth.logout()" *ngIf="auth.loggedIn">Logout&nbsp;<span><fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon></span></button>
+    </div>    
+</header>
